@@ -1,7 +1,7 @@
 <script lang="ts">
 import {mapActions} from 'vuex';
-import {PropType} from "vue";
-import {CardType} from "@/lib/constants";
+import * as PropType from "vue";
+import * as CardType from "../../lib/constants";
 
 export default {
   props: {

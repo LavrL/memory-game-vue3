@@ -2,7 +2,7 @@
 import {mapActions, mapGetters} from 'vuex'
 import {STATUS} from '@/vuex/gameStatus';
 import Card from "../../components/card/Card.vue";
-import {CardType} from "@/lib/constants";
+import * as CardType from "../../lib/constants";
 
 export default {
   components: {Card},
