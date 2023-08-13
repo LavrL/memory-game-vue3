@@ -1,7 +1,8 @@
 import type {CardType} from "@/lib/constants";
+import type {State} from "@/vuex";
 
 export default {
-    reset(state, newState): void {
+    reset(state: State, newState: State): void {
         state.leftMatched = newState.leftMatched
         state.highestSpeed = newState.highestSpeed
         state.status = newState.status
@@ -9,20 +10,22 @@ export default {
         state.elapsedMs = newState.elapsedMs
     },
 
-    updateStatus(state, newStatus): void {
+    updateStatus(state: State, newStatus: string): void {
         state.status = newStatus
     },
 
-    decreaseMatch(state): void {
+    decreaseMatch(state: State): void {
         state.leftMatched = state.leftMatched - 1;
     },
 
-    flip(state, cardFlipped): void {
+    flip(state: State, cardFlipped: CardType): void {
         const card = state.cards.find((card: CardType) => card === cardFlipped);
-        card.flipped = !card.flipped;
+        if (card) {
+            card.flipped = !card.flipped;
+        }
     },
 
-    flips(state, cards): void {
+    flips(state: State, cards: CardType[]): void {
         state.cards
             .filter((card: CardType) => cards.indexOf(card) >= 0)
             .forEach((card: CardType) => {
@@ -30,15 +33,15 @@ export default {
             })
     },
 
-    counting(state): void {
+    counting(state: State): void {
         state.elapsedMs = state.elapsedMs + 1;
     },
 
-    updateHighestSpeed(state): void {
-        if (!localStorage.getItem('highestSpeed')) {
+    updateHighestSpeed(state: State): void {
+        if (!localStorage?.getItem('highestSpeed')) {
             return localStorage.setItem('highestSpeed', state.elapsedMs)
         }
-        if (localStorage.getItem('highestSpeed') > state.elapsedMs) {
+        if (localStorage?.getItem('highestSpeed')! > state.elapsedMs) {
             return localStorage.setItem('highestSpeed', state.elapsedMs)
         }
     }

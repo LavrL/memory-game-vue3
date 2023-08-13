@@ -1,7 +1,10 @@
+
+import type {State} from "@/vuex";
+
 export default {
-    leftMatched: state => state.leftMatched,
-    highestSpeed: state => state.highestSpeed,
-    elapsedMs: state => state.elapsedMs,
-    cards: state => state.cards,
-    status: state => state.status
+    leftMatched: (state:State) => state.leftMatched,
+    highestSpeed: (state:State) => state.highestSpeed,
+    elapsedMs: (state:State) => state.elapsedMs,
+    cards: (state:State) => state.cards,
+    status: (state:State) => state.status
 }

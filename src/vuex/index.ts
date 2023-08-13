@@ -3,7 +3,13 @@ import getters from "./getters";
 import mutations from "./mutations";
 import Vuex, {Store} from 'vuex';
 
-export {createStore} from 'vuex';
+export interface State {
+    leftMatched: number,
+    highestSpeed: number,
+    status: string,
+    cards: [],
+    elapsedMs: string
+}
 
 const store: Store<any> = new Vuex.Store({
     state: {

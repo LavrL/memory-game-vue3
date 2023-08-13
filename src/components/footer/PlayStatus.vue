@@ -20,7 +20,7 @@ export default {
   <div class="status-footer">
     <div v-if="status === STATUS.READY">Ready</div>
     <div v-if="status === STATUS.PLAY">Play</div>
-    <a v-if="status === STATUS.PASS" href @click.prevent.stop="reset" class="text-play-again">Play again</a>
+    <a v-if="status === STATUS.PASS" @click.prevent.stop="reset" class="text-play-again">Play again</a>
     <div class="elapsed">{{ elapsedMs }} s</div>
   </div>
 </template>
@@ -42,6 +42,7 @@ export default {
 .text-play-again {
   text-decoration: none;
   color: black;
+  cursor: pointer;
 }
 
 .text-play-again:hover {

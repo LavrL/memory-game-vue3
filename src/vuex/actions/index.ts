@@ -1,26 +1,32 @@
 import {shuffleCards} from '../../lib/shuffle';
 import {STATUS} from '../gameStatus';
-import * as CardType from "../../lib/constants";
+//import {CardType} from "../../lib/constants";
+import type {Commit} from "vuex";
 
 const cardNames: string[] = ['viber', 'whatsapp', 'youtube'];
 
-let timerId
+let timerId: NodeJS.Timer;
+
+export interface CardType {
+    flipped: boolean,
+    cardName: string
+}
 
 const statusHandler = {
-    PLAY: function ({commit}): void {
+    PLAY: function ({commit}: { commit: Commit }): void {
         timerId = setInterval(function () {
             commit('counting')
         }, 1000)
     },
 
-    PASS: function ({commit}): void {
+    PASS: function ({commit}: { commit: Commit }): void {
         clearInterval(timerId)
         commit('updateHighestSpeed')
     }
 }
 
 export default {
-    reset: function ({commit}): void {
+    reset: function ({commit}: { commit: Commit }): void {
         commit('reset', {
             leftMatched: cardNames.length,
             highestSpeed: localStorage.getItem('highestSpeed') || 9999,
@@ -32,20 +38,20 @@ export default {
         })
     },
 
-    updateStatus: function (context, status): void {
+    updateStatus: function (context, status: string): void {
         context.commit('updateStatus', status);
         statusHandler[status] && statusHandler[status](context);
     },
 
-    flipCard: function ({commit}, card: CardType): void {
+    flipCard: function ({commit}: { commit: Commit }, card: CardType): void {
         commit('flip', card);
     },
 
-    flipCards: function ({commit}, cards): void {
+    flipCards: function ({commit}: { commit: Commit }, cards: CardType): void {
         commit('flips', cards);
     },
 
-    match: function ({commit}): void {
+    match: function ({commit}: { commit: Commit }): void {
         commit('decreaseMatch');
     }
 }
